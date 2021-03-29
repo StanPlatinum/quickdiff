@@ -1,0 +1,66 @@
+\appendix
+
+%for ACM format
+%\section*{Appendix}
+
+%\weijie{illustrate the alternative side/covert channel mitigation policy}
+
+\subsection{Instrumentation Details}\label{appendix-instrumentation}
+
+Here we illustrate other instrumentation modules in our code generator.
+
+\vspace{3pt}\noindent\textbf{RSP modification instrumentation}. Since RSP spilling would cause illegal implicit memory writing, RSP modification instructions should also be checked. This module first locates all RSP modification instructions in the program and then instruments assembly code after them to check whether the RSP values are out of bounds. Just like store instruction instrumentation, the upper and lower boundaries of RSP are specified by the loader and written into the assembly instructions by the rewriter, while the compiler only fills them with speical immediates (0x5ffffffffffff and 0x6ffffffffffff).
+
+When the instrumentation finds that the stack pointer is modified to an illegal address, it will cause the program to exit. Fig.~\ref{fg-rsp} shows eight instructions be inserted after the \texttt{ANDQ} instruction, which is tend to reserve new stack spaces (minus 16 from the value in RSP register). We leave the enforcement of implicit modification of the stack pointer using \texttt{PUSH} and \texttt{POP} by adding guard pages (a page with no permission granted) to the dynamic loader.
+
+\input{figures/fg-rsp.tex}
+
+\vspace{3pt}\noindent\textbf{Indirect branch instrumentation}. For checking indirect branches, we first extract all legal target names at assembly level, and output them to a list. 
+%The start address of this list in enclave memory is rewritten to certain values by the Imm rewriter when used. 
+After that, we insert a inspection function calling in front of every indirect branch instruction (in Fig.~\ref{fg-indirect}), to achieve forward-edge CFI check at runtime. 
+Specifically, the inspection function \verb|CFICheck| is written and included in the target binary, to search if the indirect branch is on that list, therefore ensuring they conform to the program control flow. 
+%Consequently as shown in Fig.~\ref{fg-indirect}, calling these functions in assembly will achieve legality checks on the program at runtime.
+
+\input{figures/fg-indirect.tex}
+
+\vspace{3pt}\noindent\textbf{Shadow stack}. For function returns, the code generator instruments instructions to support a shadow call stack, which is a fully precise mechanism for protecting backwards edges~\cite{burow2019sok}. The shadow stack’s base address is specified by the loader, and will be rewritten by the Imm rewriter (to replace the imm filled in by the compiler in advance).
+
+As shown in Fig.~\ref{fg-shadowstack}, at every function entry, we insert instructions (before the function stack alignment) that will modify the shadow stack top pointer and push the function's return address into the shadow stack. Similar to instrumentation at the function entry, instructions inserted before the function returns  modify the stack pointer and pop the return address. Comparing the saved return address with the real return address, \texttt{RET} can be checked at runtime.
+
+\input{figures/fg-shadowstack.tex}
+
+\vspace{3pt}\noindent\textbf{SSA monitoring instrumentation}. 
+As demonstrated in previous works~\cite{gruss2017strong,chen2018racing}, AEX can be detected by monitoring the SSA. Therefor, to enforce P6, we instrument every basic block to set a marker in the SSA and monitor whether the marker is overwritten by AEX within the basic block. The execution is terminated once the number of AEXes within the basic block exceeds a preset threshold. 
+
+A function is also implemented to get the interrupt context information in the bootstrap enclave's SSA area. At the beginning of each basic block, we call this function through instrumentation to check whether there are too many interruptions during execution. When a basic block is too large, this function will also be called in the middle of basic block every k ($k=20$) instructions. We count the number of interrupts/AEXs that occurred from the last check to the current check. When 22 or more are triggered, the target program aborts.
+
+\vspace{3pt}\noindent\textbf{Alternative instrumentation}. 
+To mitigate AEX based side-channel risks, CAT-SGX provides an alternative enforcement mechanism, through TSX, which can be chosen when compiling the target program. This approach is based upon T-SGX~\cite{shih2017t}, putting transaction memory protection on each basic block and running a fallback function to keep track of the number of interrupts observed. Just like T-SGX, when more than 10 consecutive AEXes happen, the computation aborts, due to the concern of an ongoing side-channel attack.  The protection is instrumented by the generator and its presence is verified by the code consumer in the enclave. 
+
+We have implemented a function, in which \texttt{XBEGIN} and \texttt{XEND} is called and fallback is specified, which can be inserted into the target binary. Around each branch, every \texttt{CALL}/\texttt{RET} instruction, and at the begin/end of each basic block, we call this function so that the program leaves the last transaction and enters a new transaction when a possible control flow branch occurs and completes. Some code snippets are shown in Figure~\ref{fg-tsgx}. 
+
+%About wrapper function
+To deal with the compatibility problems caused by calling functions that has no need to be checked (e.g., the system calls via OCall stubs), we implemented another non-TSX wrapper for external functions.
+Particularly, our LLVM pass will generate an alternative function \verb|wrapper_foo| to replace original function \verb|foo|, to avoid the TSX instrumentation.
+%wrapper function is not the tsx wrapper
+
+\input{figures/fg-tsgx.tex}
+
+\subsection{Preparing Target Binary}\label{appendix-preparing}
+
+\vspace{3pt}\noindent\textbf{Libc}. To manage interactions with the untrusted operating system, we make some Ocall stubs for system calls. 
+Related works~\cite{shinde2017panoply,tsai2017graphene,priebe2019sgx,shinde2020besfs} provide various great Ocall interfaces. But some of them still require additional interface sanitizations.
+We use parts of musl libc~\cite{musllibc} for completing the code loading support (Section~\ref{subsec:code-loading-support}).
+%- since we cannot use SGX SDK's Libc, we make the applications calling Musl-Libc and let Musl to call the customized 36 Ocall stubs. 
+Undoubtedly, the musl libc should be instrumented as well. Then, it can be linked against other necessary libraries statically, e.g., mbedTLS for buiding an HTTPS server.
+
+\vspace{3pt}\noindent\textbf{Stack and heap}. We also reserved customized stack and heap space for the target program execution. During the above-mentioned loading phase, the CAT-SGX system initializes a 4 MB (by default) memory space for the stack, and links against a customized and instrumented \verb|malloc| function for later heap usage. In current version of our prototype, the memory ranges of the additional stack and the heap provided for the target program are fixed, for efficient boundary checking.
+
+\vspace{3pt}\noindent\textbf{Other necessary functions}. The instrumented proof includes not only the assembly instructions. Some necessary functions and objects also should be compiled and linked.
+Since we need an algorithm to check if the address of an indirect branch target is on the legal entry label list (for P5 enforcement), a binary search function \verb|CFICheck| is inserted into the target program.
+Similarly, as we need a function to enforce P6, necessary functions need to be called for SSA monitoring frequently. 
+Those objects would also be disassembled and checked during the stage of proof verification, to ensure that these can not be compromised when they are called.
+%, and the variables in them will not be tampered with.
+%\weijie{CFICheck.o for forward-edge CFI; TransactionBegin.o and telib\_t.o for side channel resilience}
+
+%As we retrofit the T-SGX and Hyperrace, two necessary functions (one for executing the \texttt{XBEGIN} instruction and the other for calling an SSA modification check) need to be called frequently. Therefore, objects used in side channel defenses like \verb|telib_t.o| (for SSA monitoring) that consist of those two functions respectively are linked and work with the whole instrumentations. Those objects would also be disassembled and checked during the stage of proof verification. We can ensure that these are also safe when they are called, and the variables in them will not be tampered with.

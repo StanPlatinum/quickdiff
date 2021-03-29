@@ -1,0 +1,54 @@
+\begin{figure}[hbp]
+
+\begin{center}
+    
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=left]
+movabsq	$0x2FFFFFFFFFFF, %r11
+addq	$8, (%r11)
+movq	(%r11), %r10
+addq	%r10, %r11
+movq	(%rsp), %r10
+movq	%r10, (%r11)
+pushq	%rbp
+movq	%rsp, %rbp
+\end{lstlisting}
+\small{Instrumentation before stack alignment}
+\end{center}
+\end{minipage}
+
+\hfill
+
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=left]
+movabsq	$0x2FFFFFFFFFFF, %r11
+movq	(%r11), %r10
+addq	%r11, %r10
+subq	$8, (%r11)
+movq	(%r10), %r11
+cmpq	%r11, (%rsp)
+jne	exit_label
+\end{lstlisting}
+\small{Instrumentation before function return}
+\end{center}
+\end{minipage}
+
+\hfill
+
+\begin{minipage}{0.3\textwidth}
+\begin{center}
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=left]
+exit_label:
+    movl    $0xFFFFFFFF, %edi
+    callq   exit
+\end{lstlisting}
+\small{Instrumentation for exit label}
+\end{center}
+\end{minipage}
+
+\caption{Structured Guard Formats of Shadow Stack}\label{fg-shadowstack}
+
+\end{center}
+\end{figure}

@@ -1,0 +1,18 @@
+\section{Conclusion}\label{sec-conclusion}
+
+In this paper we proposed \textsc{Deflection}, which allows the user to verify the code provided by untrusted parties without undermining their privacy and integrity. Meanwhile, we instantiated the design of a code generator and a code consumer (the bootstrap enclave) - a lightweight PCC-type framework.
+Due to the differences between normal binary and SGX binary, we retrofit the framework to be fitted into SGX. In return, we reduce the framework's TCB as small as possible.
+%by moving the compiler out of the trusted part.
+Our work does not use formal certificate to validate the loaded private binary, but leverage data/control flow analysis to fulfill the goal of verifying if a binary has such data leakage, allowing our solution to scale to real-world software. 
+%Moreover, our method provides a new paradigm for PCC to use a TEE (other than the OS) as an execution environment, which provides more powerful protection. 
+
+
+%A coarse grained CFI is enforced to prevent a strong attacker from bypassing the runtime checks we instrumented in the loaded binary.  The verifier we built is self-protection and is hard to be circumvented.
+%Our CFI scheme can guarantee all indirect branches the target binary and the SGX’s SDK are legal.  
+
+%In this way, we can ensure that the trust chain is sound and complete.
+
+%In future, we plan to extend the framework to support other policies.
+%using typed assembly language~\cite{morrisett1999system}
+
+%\revise{Our design does have a few limitations, however.}

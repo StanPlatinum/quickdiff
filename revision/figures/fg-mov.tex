@@ -1,0 +1,24 @@
+\begin{figure}
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+%[basicstyle=\scriptsize,numbers=left, numberstyle=\scriptsize,,keywordstyle=\color{blue!70},commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
+\begin{lstlisting}[basicstyle=\scriptsize]
+pushq   %rbx    ;save execution status
+pushq   %rax
+leaq    [reg+imm], %rax ;load the operand
+movq    $0x3FFFFFFFFFFFFFFF, %rbx  ;set bounds
+cmpq    %rbx, %rax
+ja      exit_label
+movq    $0x4FFFFFFFFFFFFFFF, %rbx  ;set bounds
+cmpq    %rbx, %rax              
+jb      exit_label
+popq    %rax
+popq    %rbx
+movq    reg, [reg+imm]
+\end{lstlisting}
+\end{minipage}
+\end{center}
+\vspace{-8pt}
+\caption{Store instruction instrumentation}\label{fg-mov}
+\vspace{-15pt}
+\end{figure}

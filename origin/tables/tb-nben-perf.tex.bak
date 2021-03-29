@@ -1,0 +1,31 @@
+\begin{table*}[htbp]
+\footnotesize
+\caption{nBench Performance}\label{tb-nben-perf}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Program Name} & \textbf{Baseline} & \textbf{P1} & \textbf{P1+P2} & \textbf{P1\textasciitilde P5} & \textbf{P1\textasciitilde P6}\\
+\hline
+NUMERIC SORT & 1487$\mu$s  & 1564$\mu$s (+5.18\%) & 1577$\mu$s (+6.05\%) & 1588$\mu$s (+6.79\%) & 1665$\mu$s (+12.0\%) \\
+\hline
+STRING SORT & 8460$\mu$s & 9141$\mu$s (+8.05\%) & 9321$\mu$s (+10.2\%) & 9507$\mu$s (+12.4\%)  & 10.02ms (+18.4\%)\\
+\hline
+BITFIELD & 46.83ns & 49.69ns (+6.11\%) & 52.12ns (+11.3\%) & 54.10ns (+15.5\%)  & 55.23ns (+17.9\%) \\
+\hline
+FP EMULATION & 14.93ms & 14.96ms (+0.20\%) & 14.97ms (+0.27\%) & 14.98ms (+0.33\%) & 15.73ms (+5.36\%) \\
+\hline
+FOURIER & 34.22$\mu$s & 35.07$\mu$s (+2.48\%) & 35.15$\mu$s (+2.72\%) & 35.21$\mu$s (+2.89\%) & 36.77$\mu$s (+7.45\%) \\
+\hline
+ASSIGNMENT & 43.52ms & 46.45ms (+6.73\%) & 50.30ms (+15.6\%) & 54.41ms (+25.0\%)  & 60.85ms (+39.8\%)\\
+\hline
+IDEA & 342.2$\mu$s & 350.2$\mu$s (+2.34\%) & 351.3$\mu$s (+2.66\%) & 352.9$\mu$s (+3.13\%)  & 385.7$\mu$s (+12.1\%) \\
+\hline
+HUFFMAN & 550.1$\mu$s & 635.3$\mu$s (+15.5\%) & 640.1$\mu$s (+16.6\%) & 649.6$\mu$s (+18.1\%)  & 667.1$\mu$s (+21.3\%)\\
+\hline
+NEURAL NET & 49.44ms & 56.28ms (+13.8\%) & 59.01ms (+19.4\%) & 59.43ms (+20.2\%) & 60.84ms (+23.1\%) \\
+\hline
+LU DECOMPOSITION & 1024$\mu$s & 1068$\mu$s (+4.30\%) & 1096$\mu$s (+7.03\%) & 1123$\mu$s (+9.67\%)  & 1255$\mu$s (+22.6\%)\\
+\hline
+\end{tabular}
+\end{center}
+\end{table*}

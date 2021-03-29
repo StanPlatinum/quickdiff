@@ -1,0 +1,88 @@
+
+\begin{table}[htbp]
+\footnotesize
+\caption{TCB comparison with other solutions}\label{tb-tcb}
+\vspace{-8pt}
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Shielding runtimes} & \textbf{Core components} & kLoCs & \textbf{Size(MB)} \\
+\hline
+ & Eglibc & 892 & \\
+Ryoan & NaCl sandbox & 216 & $>$ 19 \\
+ & Naclports & 460 & \\
+\hline
+SCONE & OS Shield and shim libc & 187 & $>$ 16 \\
+\hline
+ & Glibc & 1200 & \\
+Graphene-SGX & LibPAL & 22 & $>$ 58.5 \\
+ & Graphene LibOS & 34 & \\
+\hline
+ & Occlum shim libc & 93 & \\
+Occlum & Verifier & N/A & $>$ 8.6 \\
+%1.7+2.5+3.1+1.3
+ & Occlum LibOS and PAL & 24.5 & \\
+\hline
+ & Interface and libc & 65  & \\
+\textsc{Deflection} & Loader/Verifier & 1.3 & 3.5 \\ 
+ & RA/Encryption & 0.2 & \\
+\hline
+\end{tabular}
+\end{center}
+%*  Ryoan reports a TCB of multiple modules (including at least a NaCl sandbox), however we do not have the access to the system for comparison.
+%* Occlum leverages Rust SGX SDK instead of solely using Intel SGX SDK which is used by other solutions.
+\vspace{-10pt}
+\end{table}
+
+
+
+
+
+
+
+%%%%----------------------------------------------------------------%%%%
+\ignore{
+
+\weijie{comparison}
+%\xiaofeng{
+
+
+\vspace{2pt}\noindent$\bullet$\textit{ Loader and verifier}.
+The loader we implemented consists of
+%While the main function of dynamic loading we implemented is very small that only consists of 
+less than 600 lines of code (LoCs) and the verifier includes less than 700 LoCs, also integrating the SGX SDK and part of Capstone libraries. 
+%Yet the whole loader and verifier is supported by the Capstone and an ELF parser so that part of the \verb|libcapstone.a| and the \verb|libelf.a| should also be included.
+
+\vspace{2pt}\noindent$\bullet$\textit{ ECall/OCall stubs for supporting P0}. This was implemented in less than 500 LoCs. 
+%Components to process the input/output and its configuration brings in less than 500 lines.
+
+\vspace{2pt}\noindent$\bullet$\textit{ Simple RA protocol implementation}. The implementation  (Section~\ref{subsec:ra-impl}) is done with about about 200 LoCs.
+
+%\vspace{2pt}\noindent$\bullet$\textit{ Dependencies}. Our framework is built upon several existing libraries, which include the SGX SDK libraries, parts of Capstone libraries, and an ELF parser.
+\noindent Altogether, our software TCB contains less than 2000 LoCs and some dependencies, which was compiled into a self-contained binary with 1.9 MB in total. By comparison, XXX includes XXX LoCs, XXX in binary in its TCB, based upon our analysis of its code~\cite{shinde2017panoply}. 
+%}
+%\weijie{openssl}
+
+}
+
+
+
+
+
+
+
+\ignore{
+The loader we implemented consists of
+%While the main function of dynamic loading we implemented is very small that only consists of 
+less than 600 lines of code (LoCs) and the verifier includes less than 700 LoCs, which also integrates SGX SDK and part of Capstone libraries. 
+%Yet the whole loader and verifier is supported by the Capstone and an ELF parser so that part of the \verb|libcapstone.a| and the \verb|libelf.a| should also be included.
+
+\vspace{2pt}\noindent$\bullet$\textit{ ECall/OCall stubs for supporting P0}. This was implemented in less than 500 LoCs. 
+%Components to process the input/output and its configuration brings in less than 500 lines.
+
+\vspace{2pt}\noindent$\bullet$\textit{ Simple RA protocol realization}. The implementation  (Section~\ref{subsec:ra-impl}) introduces about 200 LoCs.
+
+%\vspace{2pt}\noindent$\bullet$\textit{ Dependencies}. Our framework is built upon several existing libraries, which include the SGX SDK libraries, parts of Capstone libraries, and an ELF parser.
+\noindent Altogether, our software TCB contains less than 2000 LoCs and some dependencies, which was compiled into a self-contained binary with 1.9 MB in total.
+\weijie{openssl}
+}

@@ -1,0 +1,19 @@
+\begin{figure}[hbp]
+\begin{center}
+\begin{minipage}{0.3\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=left]
+movq	%reg, %rdi
+callq	CFICheck
+\end{lstlisting}
+\small{Instrumentations before callq \*\%reg}
+\end{minipage}
+\begin{minipage}{0.3\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=left]
+movq	(%reg), %rdi
+callq	CFICheck
+\end{lstlisting}
+\small{Instrumentations before callq \*(\%reg)}
+\end{minipage}
+\end{center}
+\caption{Indirect Call Instrumentation}\label{fg-indirect}
+\end{figure}

@@ -1,0 +1,35 @@
+\begin{figure}
+\begin{center}
+% \begin{minipage}{0.3\textwidth}
+% \begin{lstlisting}[basicstyle=\scriptsize,numbers=left, numberstyle=\scriptsize,,keywordstyle=\color{blue!70},commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
+% xend
+% movq	%r15, %rax
+% \end{lstlisting}
+% \end{minipage}
+
+% \footnotesize{Instrumentation at the beginning of each branch instruction}
+
+% \begin{minipage}{0.3\textwidth}
+% \begin{lstlisting}[basicstyle=\scriptsize,numbers=left, numberstyle=\scriptsize,,keywordstyle=\color{blue!70},commentstyle=\color{red!50!green!50!blue!50}, rulesepcolor=\color{red!20!green!20!blue!20}]
+% movq	%rax, %r15
+% call    transactionBegin
+% \end{lstlisting}
+% \end{minipage}
+
+% \footnotesize{Instrumentation before function return}
+
+\begin{minipage}{0.3\textwidth}
+\begin{lstlisting}[basicstyle=\scriptsize,numbers=left]
+movq	%rax, %r15
+lahf
+movq	%rax, %r14
+callq	transactionEndBegin
+movq	%r14, %rax
+sahf
+movq	%r15, %rax
+\end{lstlisting}
+\end{minipage}
+
+\end{center}
+\caption{TSX instrumentation}\label{fg-tsgx}
+\end{figure}
