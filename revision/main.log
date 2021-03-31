@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.3.27)  28 MAR 2021 20:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2021.3.27)  30 MAR 2021 21:22
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -576,7 +576,32 @@ e
 ))
 \c@lstlisting=\count135
 
-(./tex/abstract.tex
+(./author.tex)
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 107.
+LaTeX Font Info:    Try loading font information for U+msa on input line 107.
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 107.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 107.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 107.
+
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/omsptm.fd
+File: omsptm.fd 
+)
+LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 107.
+ (./tex/abstract.tex
 LaTeX Font Info:    Font shape `OT1/ptm/bx/sc' in size <9> not available
 (Font)              Font shape `OT1/ptm/b/sc' tried instead on input line 6.
 ) (./tex/introduction.tex
@@ -588,18 +613,9 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 ]
 Underfull \vbox (badness 3701) has occurred while \output is active []
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 73.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 73.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
-(./tex/background.tex [2]) (./tex/CAT.tex (./figures/fg-cat-model.tex
-<figures/fg-deflection-model.pdf, id=14, 260.975pt x 106.3975pt>
+ [2])
+(./tex/background.tex) (./tex/CAT.tex (./figures/fg-cat-model.tex
+<figures/fg-deflection-model.pdf, id=15, 260.975pt x 106.3975pt>
 File: figures/fg-deflection-model.pdf Graphic file (type pdf)
 <use figures/fg-deflection-model.pdf>
 Package pdftex.def Info: figures/fg-deflection-model.pdf  used on input line 2.
@@ -609,22 +625,20 @@ Package pdftex.def Info: figures/fg-deflection-model.pdf  used on input line 2.
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no “ in font ptmr7t!
-) (./tex/design.tex [4]
-(./figures/fg-overview.tex
-<figures/fg-bootstrap-layer.pdf, id=59, 486.81876pt x 159.59625pt>
+) (./tex/design.tex [4] (./figures/fg-overview.tex
+<figures/fg-bootstrap-layer.pdf, id=60, 486.81876pt x 159.59625pt>
 File: figures/fg-bootstrap-layer.pdf Graphic file (type pdf)
 <use figures/fg-bootstrap-layer.pdf>
 Package pdftex.def Info: figures/fg-bootstrap-layer.pdf  used on input line 3.
 (pdftex.def)             Requested size: 219.0664pt x 71.81763pt.
-) (./figures/fg-workflow.tex
-<figures/fg-workflow.pdf, id=60, 826.08624pt x 173.64874pt>
+)
+(./figures/fg-workflow.tex
+<figures/fg-workflow.pdf, id=61, 826.08624pt x 173.64874pt>
 File: figures/fg-workflow.pdf Graphic file (type pdf)
 <use figures/fg-workflow.pdf>
 Package pdftex.def Info: figures/fg-workflow.pdf  used on input line 2.
 (pdftex.def)             Requested size: 413.0421pt x 86.82416pt.
 )
-Underfull \vbox (badness 6978) has occurred while \output is active []
-
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
@@ -645,12 +659,15 @@ Missing character: There is no ™ in font ptmr7t!
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
- [7])
+ [7]
+Underfull \vbox (badness 3701) has occurred while \output is active []
+
+)
 (./tex/implementation.tex (./figures/fg-codegen.tex
 
 pdfTeX warning: pdflatex (file ./figures/fg-codegen.pdf): PDF inclusion: found 
 PDF version <1.7>, but at most version <1.5> allowed
-<figures/fg-codegen.pdf, id=118, 594.30032pt x 193.6836pt>
+<figures/fg-codegen.pdf, id=119, 594.30032pt x 193.6836pt>
 File: figures/fg-codegen.pdf Graphic file (type pdf)
 <use figures/fg-codegen.pdf>
 Package pdftex.def Info: figures/fg-codegen.pdf  used on input line 2.
@@ -689,10 +706,6 @@ Package xcolor Warning: Incompatible color definition on input line 9.
 
 Package xcolor Warning: Incompatible color definition on input line 9.
 
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 9.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
 
 Package xcolor Warning: Incompatible color definition on input line 9.
 
@@ -770,7 +783,7 @@ Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
  [8 <./figures/fg-codegen.pdf>] (./figures/fg-dynloader.tex
-<figures/fg-dynloader.pdf, id=145, 457.71pt x 316.3017pt>
+<figures/fg-dynloader.pdf, id=146, 457.71pt x 316.3017pt>
 File: figures/fg-dynloader.pdf Graphic file (type pdf)
 <use figures/fg-dynloader.pdf>
 Package pdftex.def Info: figures/fg-dynloader.pdf  used on input line 2.
@@ -808,30 +821,30 @@ ptm/m/n/10 . We im-ple-mented the
  []
 
 (./figures/fg-3-performance.tex
-<figures/fg-nw-perf.pdf, id=181, 332.18204pt x 187.70927pt>
+<figures/fg-nw-perf.pdf, id=182, 332.18204pt x 187.70927pt>
 File: figures/fg-nw-perf.pdf Graphic file (type pdf)
 <use figures/fg-nw-perf.pdf>
 Package pdftex.def Info: figures/fg-nw-perf.pdf  used on input line 5.
 (pdftex.def)             Requested size: 152.80559pt x 86.3473pt.
-<figures/fg-fasta-perf.pdf, id=182, 334.41737pt x 189.57124pt>
+<figures/fg-fasta-perf.pdf, id=183, 334.41737pt x 189.57124pt>
 File: figures/fg-fasta-perf.pdf Graphic file (type pdf)
 <use figures/fg-fasta-perf.pdf>
 Package pdftex.def Info: figures/fg-fasta-perf.pdf  used on input line 10.
 (pdftex.def)             Requested size: 153.83385pt x 87.20383pt.
-<figures/fg-credit-score.pdf, id=183, 333.22693pt x 187.78658pt>
+<figures/fg-credit-score.pdf, id=184, 333.22693pt x 187.78658pt>
 File: figures/fg-credit-score.pdf Graphic file (type pdf)
 <use figures/fg-credit-score.pdf>
 Package pdftex.def Info: figures/fg-credit-score.pdf  used on input line 15.
 (pdftex.def)             Requested size: 153.28624pt x 86.38286pt.
 ) (./figures/fg-https-all.tex
-<figures/fg-https-server.pdf, id=184, 508.3039pt x 274.89192pt>
+<figures/fg-https-server.pdf, id=185, 508.3039pt x 274.89192pt>
 File: figures/fg-https-server.pdf Graphic file (type pdf)
 <use figures/fg-https-server.pdf>
 Package pdftex.def Info: figures/fg-https-server.pdf  used on input line 2.
 (pdftex.def)             Requested size: 243.9831pt x 131.94661pt.
 )
 (./figures/fg-comparison.tex
-<figures/fg-comparison.pdf, id=185, 428.31319pt x 227.13959pt>
+<figures/fg-comparison.pdf, id=186, 428.31319pt x 227.13959pt>
 File: figures/fg-comparison.pdf Graphic file (type pdf)
 <use figures/fg-comparison.pdf>
 Package pdftex.def Info: figures/fg-comparison.pdf  used on input line 2.
@@ -841,8 +854,10 @@ Package pdftex.def Info: figures/fg-comparison.pdf  used on input line 2.
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
-) (./tex/conclusion.tex) (./acknowledgement.tex [12 <./figures/fg-nw-perf.pdf> 
-<./figures/fg-fasta-perf.pdf
+) (./tex/conclusion.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [12 <./figures/fg-nw-perf.pdf> <./figures/fg-fasta-perf.pdf
 
 pdfTeX warning: pdflatex (file ./figures/fg-fasta-perf.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
@@ -854,7 +869,7 @@ ultiple pdfs with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./figures/fg-comparison.pdf): PDF inclusion: mul
 tiple pdfs with page group included in a single page
->]
+>]) (./acknowledgement.tex
 Missing character: There is no Ã in font ptmr7t!
 Missing character: There is no ¼ in font ptmr7t!
 ) (./main.bbl
@@ -872,13 +887,13 @@ Underfull \hbox (badness 2027) in paragraph at lines 70--75
 Missing character: There is no â in font ptmr7t!
 Missing character: There is no € in font ptmr7t!
 Missing character: There is no ™ in font ptmr7t!
-
+[13]
 Underfull \hbox (badness 4096) in paragraph at lines 234--238
 \OT1/ptm/m/n/8 ``Flicker: An ex-e-cu-tion in-fras-truc-ture for tcb min-i-miza-
 tion,'' in
  []
 
-[13]
+
 Underfull \hbox (badness 8056) in paragraph at lines 435--438
 []\OT1/ptm/m/n/8 G. Tan |   []   |   [], |   []   |   []   |   []   |   []   | 
   []
@@ -900,13 +915,13 @@ Before submitting the final camera ready copy, remember to:
 
 ] (./main.aux) ) 
 Here is how much of TeX's memory you used:
- 8197 strings out of 492982
- 121355 string characters out of 6134896
- 223949 words of memory out of 5000000
- 11539 multiletter control sequences out of 15000+600000
- 47034 words of font info for 97 fonts, out of 8000000 for 9000
+ 8246 strings out of 492982
+ 122116 string characters out of 6134896
+ 255121 words of memory out of 5000000
+ 11580 multiletter control sequences out of 15000+600000
+ 54238 words of font info for 115 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,10n,49p,1703b,1847s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 44i,14n,49p,1703b,1658s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texli
@@ -917,7 +932,7 @@ ype1/urw/courier/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/time
 s/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><
 /usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (15 pages, 877549 bytes).
+Output written on main.pdf (15 pages, 881302 bytes).
 PDF statistics:
  300 PDF objects out of 1000 (max. 8388607)
  205 compressed objects within 3 object streams

@@ -4,6 +4,8 @@
 # In the origin dir, only one zip file (before camera-ready) should be in there.
 # In the revision dir, only one zip file (camera-ready) should be in there.
 
+# NOTE: Assume that only the tex dir in the overleaf project has been modified during the camera-ready preparation.
+
 export YIJIAN_DIR=$PWD
 
 # compiling origin
@@ -60,7 +62,8 @@ cd diff
 sed -i '3 r providecommand.tex' main.tex
 make
 
-
-
-# NOTE: Assume that only the tex dir in the overleaf project has been modified during the camera-ready preparation.
+# copying
+cd $YIJIAN_DIR
+cp $YIJIAN_DIR/revision/main.pdf ./revision.pdf
+cp $YIJIAN_DIR/diff/main.pdf ./diff.pdf
 
