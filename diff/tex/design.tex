@@ -5,7 +5,9 @@
 
 %As described in Sec.~\ref{sec-CAT}, a confidential attestation process encompasses a standard Intel attestation to attest the bootstrap enclave and establish a secure communication channel. If they are convinced that the bootstrap enclave can enforce the desired security policies, the data or code providers can send the data and code (in encrypted form) to the bootstrap enclave. 
 
-In this section we present our design, which elevates the SGX platform with the support for the \textsc{Deflection} model. This is done using an in-enclave software layer -- the bootstrap enclave running the code consumer and an out-enclave auxiliary -- the code generator. Following we first describe the general idea behind our design and then elaborate the policies it supports, its individual components and potential extension.     
+In this section we present our design, which elevates the SGX platform with the support for the \textsc{Deflection} model. This is done using an in-enclave software layer -- the bootstrap enclave running the code consumer and an out-enclave auxiliary -- the code generator. 
+\DIFdelbegin \DIFdel{Following we first describe the general idea behind our design and then elaborate the policies it supports, its individual components and potential extension.     
+}\DIFdelend %DIF >  Following we first describe the general idea behind our design and then elaborate the policies it supports, its individual components and potential extension.     
 
 
 %under the privacy preserving data processing scenario. In this setting, the service user (i.e., the data owner) communicates with the remote data processing service with encrypted messages for uploading her data and receiving the results.
@@ -24,15 +26,17 @@ In this section we present our design, which elevates the SGX platform with the 
 
 
 
-\subsection{Overview}
+\subsection{\DIFaddbegin \DIFadd{Architecture }\DIFaddend Overview}
 \label{subsec-overview}
 
-\noindent\textbf{Idea}. Behind the design of \textsc{Deflection} is the idea of PCC, which enables efficient in-enclave verification of \revise{mobile code with proof}. A direct application of the existing PCC techniques, however, fails to serve our purpose, as mentioned earlier, due to the huge TCB introduced, the large proof size and the exponential time with regards to the code size for proof generation. To address these issues, we design a lightweight 
+\DIFdelbegin %DIFDELCMD < \noindent%%%
+\textbf{\DIFdel{Idea}}%DIFAUXCMD
+\DIFdel{. Behind the design of }\textsc{\DIFdel{Deflection}} %DIFAUXCMD
+\DIFdel{is the idea of PCC, which enables efficient in-enclave verification of }%DIFDELCMD < \revise{mobile code with proof}%%%
+\DIFdel{. A direct application of the existing PCC techniques, however, fails to serve our purpose, as mentioned earlier, due to the huge TCB introduced, the large proof size and the exponential time with regards to the code size for proof generation. To address these issues, we design a lightweight 
 approach with an untrusted code producer and a trusted code consumer running inside the bootstrap enclave. The producer compiles the source code of the target program with necessary libraries (for service providing), generates a list of its indirect jump targets, and instruments it with security annotations (in assembly with structured inline guards) for runtime mediation of its control flow and key operations, in compliance with security policies. The list and security annotations constitute a ``proof'', which is verified by the consumer (according to certain formats) after loading the code into the enclave and before the target binary is activated. 
+}\DIFdelend %DIF >  \noindent\textbf{Idea}. Behind the design of \textsc{Deflection} is the idea of PCC. The code producer (in Figure~\ref{fg-overview}) compiles the source code of the target program with necessary libraries (for service providing), generates a list of its indirect jump targets, and instruments it with security annotations (in assembly with structured inline guards) for runtime mediation of its control flow and key operations, in compliance with security policies. The list and security annotations constitute a ``proof'', which is verified by the consumer after loading the code into the enclave and before the target binary is activated. 
 \DIFaddbegin 
-
-\DIFadd{The advantage of our design compared to other state-of-the-art shielding runtimes (e.g., Occlum) is three-fold. Firstly, DEFLECTION is more general. The memory access check of Occlum relies on hardware (Intel MPX) which is no longer supported by Intel, significantly hindering deployment. Secondly, DEFLECTION has a smaller size of TCB. Other than importing Zydis and PyVEX (in Python) to be the disassembler and verifier, we shrank and modified Capstone (in C) to implement our smaller disassembler and verifier. Thirdly, DEFLECTION can mitigate some side/covert channel leaks while others provide no such protection.
-}
 
 \DIFaddend %\weijie{proof/annotation: assembly with certain format/inline guards, inspired by the typed x86 assembly}
 
@@ -42,7 +46,9 @@ approach with an untrusted code producer and a trusted code consumer running ins
 
 \input{figures/fg-overview.tex}
 
-\vspace{3pt}\noindent\textbf{Architecture}. The architecture \DIFdelbegin \DIFdel{of }\DIFdelend is illustrated in Figure~\ref{fg-overview}. The code generator and the binary\DIFdelbegin \DIFdel{and proof it produced }\DIFdelend \DIFaddbegin \DIFadd{/proof it produces }\DIFaddend are all considered untrusted. \DIFdelbegin \DIFdel{Only }\DIFdelend \DIFaddbegin \DIFadd{The code consumer }\DIFaddend in the TCB is \DIFdelbegin \DIFdel{the code consumer }\DIFdelend with two components: a dynamic-loader operating a rewriter for re-locating the target binary, and a proof verifier running a disassembler for checking the correct instrumentation of security annotations. These components are all made public and can therefore be measured for a remote attestation (Section~\ref{subsec:ra-impl}). They are designed to minimize their code size, by moving most workload to the code producer. 
+\DIFdelbegin %DIFDELCMD < \vspace{3pt}\noindent%%%
+\textbf{\DIFdel{Architecture}}%DIFAUXCMD
+\DIFdel{. The architecture of is illustrated in Figure~\ref{fg-overview}. }\DIFdelend The code generator and the binary\DIFdelbegin \DIFdel{and proof it produced }\DIFdelend \DIFaddbegin \DIFadd{/proof it produces }\DIFaddend are all considered untrusted. \DIFdelbegin \DIFdel{Only }\DIFdelend \DIFaddbegin \DIFadd{The code consumer }\DIFaddend in the TCB is \DIFdelbegin \DIFdel{the code consumer }\DIFdelend with two components: a dynamic-loader operating a rewriter for re-locating the target binary, and a proof verifier running a disassembler for checking the correct instrumentation of security annotations. These components are all made public and can therefore be measured for a remote attestation (Section~\ref{subsec:ra-impl}). They are designed to minimize their code size, by moving most workload to the code producer. 
 
 %\weijie{will unify them all into `verifier'}
 
@@ -101,7 +107,9 @@ Another objective here is to mitigate covert channel leaks through the interface
 %In such service-oriented scenarios, all the bridge functions should be public and attestable for normal use, we should make restrictions on them. The output is to be produced encrypted and the loader must deal with system calls via a trusted Ocall routine. All ECalls/OCalls will be audited and configured correctly by the bootstrap enclave.
 
 \vspace{2pt}\noindent$\bullet$\textit{ P0: Input constraint, output encryption and entropy control}.
-We restrict the ECall interfaces to just serving the purposes of uploading data and code, which perform authentication, decryption and optionally input sanitization (or a simple length check). Also only some types of system calls are allowed through OCalls. Particularly, all network communication through OCalls should be encrypted with proper session keys (for the data owner or the code provider). In CCaaS, the data owner can demand that only one OCall (for sending back results to the owner) be allowed. Note that under such control and verification on explicit I/O channels, as well as system call traces and output data sizes, it becomes more difficult for untrusted code to utilize covert channels via software interfaces, such as system call arguments, for exfiltrating content of user’s input outside the enclave.
+We restrict the ECall interfaces to just serving the purposes of uploading data and code, which perform authentication, decryption and optionally input sanitization (or a simple length check). Also only some types of system calls are allowed through OCalls. Particularly, all network communication through OCalls should be encrypted with proper session keys (for the data owner or the code provider).
+\DIFdelbegin \DIFdel{In CCaaS, the data owner can demand that only one OCall (for sending back results to the owner) be allowed. Note that under such control and verification on explicit I/O channels, as well as system call traces and output data sizes, it becomes more difficult for untrusted code to utilize covert channels via software interfaces, such as system call arguments, for exfiltrating content of user’s input outside the enclave.
+}\DIFdelend 
 
 %\revise{Further, by controlling and verifying explicit I/O channels, as well as system call traces and data sizes, untrusted code cannot use most covert channels via software interfaces, such as sytem call arguments, to communicate bits from the user’s input to the platform.}
 %\weijie{how we validate syscall results? verifying the syscall parameters}
@@ -151,7 +159,7 @@ To ensure that security annotations and other protection cannot be circumvented 
 
 \vspace{3pt}\noindent\textbf{AEX based side/covert channel mitigation}. 
 In addition to the covert channel through software interfaces like system calls, we further studied the potential to mitigate the covert channel threat through SGX hardware interfaces.
-It is well known that SGX's user-land TEE design exposes a large side-channel surface, which cannot be easily eliminated. In the meantime, prior research focuses on the side-channel attacks causing Asynchronous Enclave Exits (AEXs). Examples include the controlled side channel attack~\cite{xu2015controlled} that relies on triggering page faults, and the attacks on L1/L2 caches~\cite{wang2017leaky}, which requires context switches to schedule between the attack thread and the enclave thread, when Hyper-threading is turned off or a co-location test is performed before running the binary~\cite{chen2018racing}. Such protection can be integrated into \textsc{Deflection} to mitigate \DIFdelbegin \DIFdel{the }\DIFdelend side- or covert-channel attacks in this category, closing an important attack surface.
+It is well known that SGX's user-land TEE design exposes a large side-channel surface, which cannot be easily eliminated. \DIFdelbegin \DIFdel{In the meantime, prior research focuses on the side-channel attacks causing Asynchronous Enclave Exits (AEXs). }\DIFdelend Examples include the controlled side channel attack~\cite{xu2015controlled} that relies on triggering page faults, and the attacks on L1/L2 caches~\cite{wang2017leaky}, which requires context switches to schedule between the attack thread and the enclave thread, when Hyper-threading is turned off or a co-location test is performed before running the binary~\cite{chen2018racing}. Such protection can be integrated into \textsc{Deflection} to mitigate \DIFdelbegin \DIFdel{the }\DIFdelend side- or covert-channel attacks in this category, closing an important attack surface.
 %, even though we cannot eliminate covert threats in general.
 
 %shows that many side-channel attacks cause Asynchronous Enclave Exits (AEXs). Examples include the controlled side channel attack~\cite{xu2015controlled} that relies on triggering page faults, and the attacks on L1/L2 caches~\cite{wang2017leaky}, which requires context switches to schedule between the attack thread and the enclave thread, when Hyper-threading is turned off or a co-location test is performed before running the binary~\cite{chen2018racing}. CAT-SGX is capable of integrating existing solutions to mitigate the side- or covert-channel attacks in this category.  
@@ -168,12 +176,7 @@ It is well known that SGX's user-land TEE design exposes a large side-channel su
 
 \vspace{2pt}\noindent$\bullet$\textit{ P6: Controlling the AEX frequency}. The policy requires the total number of the AEX concurrences to keep below a threshold during the whole computation. Once the AEX is found to be too frequent, above the threshold, the execution is terminated to prevent further information leak.
 
-\DIFaddbegin \DIFadd{We incorporated Hyperrace~\mbox{%DIFAUXCMD
-\cite{chen2018racing} }\hspace{0pt}%DIFAUXCMD
-to enforce P6. Additional AEX detection code is inserted every $q$ instructions within a basic block. Meanwhile, we devised co-location tests and parameterized the threshold to control the possibility of an attack is co-located. Both $q$ and the threshold are obtained by theoretical analysis and experimental results. If the co-location test is passed, it means there is a very low possibility that information would leak via resources shared in a CPU core (L1/2, TLB, etc.).
-}
-
-\DIFaddend %The policy uses the AEX rate for detecting attempts for side channel attacks. Once an abnormal AEX rate is detected, the enclave execution is terminated to prevent further information leakage.
+%The policy uses the AEX rate for detecting attempts for side channel attacks. Once an abnormal AEX rate is detected, the enclave execution is terminated to prevent further information leakage.
 
 %\vspace{2pt}\noindent$\bullet$\textit{ Alternative P6: Detecting page faults with TSX support}. 
 
@@ -244,7 +247,7 @@ Note that RSP can also be changed implicitly, e.g., through pushing oversized ob
 %These annotation instructions are verified later by the verifier. 
 
 %enforcing DEP
-\vspace{3pt}\noindent\textbf{Enforcing P4}. To prevent the target binary from changing its own code at runtime, the code generator instruments all its write operations (as identified by the APIs \verb|readsWritesVirtualRegister()| and \verb|mayStore()|) with the annotations that disallow alternation of code pages. Note that the code of the target binary has to be placed on \texttt{RWX} pages by the loader under SGXv1 and its stack and heap are assigned to \texttt{RW} pages (see Sec.~\ref{subsec-loading}), so runtime code modification cannot be stopped solely by page-level protection (though code execution from the data region is defeated by the page permissions). 
+\vspace{3pt}\noindent\textbf{Enforcing P4}. To prevent the target binary from changing its own code at runtime, the code generator instruments all its write operations (as identified by the APIs \verb|readsWritesVirtualRegister()| and \verb|mayStore()|) with the annotations that disallow alternation of code pages. Note that the code of the target binary has to be placed on \texttt{RWX} pages by the loader under SGXv1 and its stack and heap are assigned to \texttt{RW} pages\DIFdelbegin \DIFdel{(see Sec.~\ref{subsec-loading})}\DIFdelend , so runtime code modification cannot be stopped solely by page-level protection\DIFdelbegin \DIFdel{(though code execution from the data region is defeated by the page permissions)}\DIFdelend . 
 %\weijie{SGXv2 based DEP}
 
 %\weijie{We loaded the code segment on the RWX pages and the data segment on the RW pages.}
@@ -286,7 +289,12 @@ Also to prevent the backward-edge control flow manipulation (through \texttt{RET
 %\weijie{up to 10 consecutive transaction aborts are allowed for each individual basic block} We enforce P6 by introducing the idea of T-SGX~\cite{shih2017t}. As a compiler-level scheme that automatically transforms a normal enclave program into a secured one, T-SGX can isolate the fallback handler and other transaction control code, called springboard, from the original program’s code and data pages to ensure that exceptions including page faults and timer interrupts can only be triggered on the springboard. We take advantage of it and implement instruction wrappers that encompass all boundaries between any basic blocks and branches. The fallback route of the TSX wrapper records the number of transaction aborts, which ensures that if a threshold is exceeded, the program is forced to exit. 
 
 
-\vspace{3pt}\noindent\textbf{Enforcing P6 with SSA inspection}. When an exception or interrupt \DIFdelbegin \DIFdel{take }\DIFdelend \DIFaddbegin \DIFadd{takes }\DIFaddend place during enclave execution, an AEX is triggered by the hardware to save the enclave context (such as general registers) to the state saving area (SSA). This makes the occurrence of the AEX visible~\cite{gruss2017strong,chen2018racing}. Specifically, the code generator \DIFdelbegin \DIFdel{enforce }\DIFdelend \DIFaddbegin \DIFadd{enforces }\DIFaddend the policy by instrumenting every basic block with an annotation that sets a marker in the SSA and monitors whether the marker is overwritten, which happens when the enclave context in the area has been changed, indicating that an AEX has occurred. 
+\vspace{3pt}\noindent\textbf{Enforcing P6 with SSA inspection}. 
+\DIFaddbegin \DIFadd{We incorporated Hyperrace~\mbox{%DIFAUXCMD
+\cite{chen2018racing} }\hspace{0pt}%DIFAUXCMD
+to enforce P6. 
+%DIF >  Additional AEX detection code is inserted every $q$ instructions within a basic block. Meanwhile, we devised co-location tests and parameterized the threshold to control the possibility of an attack is co-located. Both $q$ and the threshold are obtained by theoretical analysis and experimental results. If the co-location test is passed, it means there is a very low possibility that information would leak via resources shared in a CPU core (L1/2, TLB, etc.).
+}\DIFaddend When an exception or interrupt \DIFdelbegin \DIFdel{take }\DIFdelend \DIFaddbegin \DIFadd{takes }\DIFaddend place during enclave execution, an AEX is triggered by the hardware to save the enclave context (such as general registers) to the state saving area (SSA). This makes the occurrence of the AEX visible~\cite{gruss2017strong,chen2018racing}. Specifically, the code generator \DIFdelbegin \DIFdel{enforce }\DIFdelend \DIFaddbegin \DIFadd{enforces }\DIFaddend the policy by instrumenting every basic block with an annotation that sets a marker in the SSA and monitors whether the marker is overwritten, which happens when the enclave context in the area has been changed, indicating that an AEX has occurred. 
 \DIFaddbegin \DIFadd{The instrumented code inspects the marker every $q$ instructions within a basic block, which guarantees that the consecutive AEX(s) triggered will be detected and counted at least once. If an AEX is detected, a co-location test via data race probability will be performed to check co-location of the two threads.
 }\DIFaddend Through counting the number of consecutive AEXes, the protected target binary can be aborted \DIFdelbegin \DIFdel{in the presence of anomalously frequent interrupts. This protection is verified by }\DIFdelend \DIFaddbegin \DIFadd{if the counted number of AEXs exceeds a preset threshold. The threshold, as a tradeoff of performance and security, can be set by profiling the enclave program in benign environments under reasonable workload.  Meanwhile, we parameterized the threshold to control the possibility of an attack is co-located.
 }
@@ -335,7 +343,7 @@ To enforce the input constraint, we need to configure the enclave by defining ce
 To support the basic CCaaS setting,  \texttt{send} and \texttt{recv} need to be communicated to the data owner. 
 \DIFaddbegin 
 
-\DIFadd{We use entropy control to mitigate covert-channels. Since the data owner is the recipient of an enclave’s output, all a malicious enclave program can do is to signal to the untrusted OS the content of the data through covert channels, e.g., through system call interfaces. To address this type of covert channel leak, we control the enclave program’s input and output behaviors. }\DIFaddend Specially, the wrapper for \texttt{send} encrypts the message to be delivered and pads it to a fixed length. For more complicated settings, we only permit a list of OCalls to be invoked once to deliver the computing result to the code provider, which can be enforced by the wrapper of the function. Further\DIFaddbegin \DIFadd{, }\DIFaddend the wrapper can put a constraint on the length of the result to control the amount of information disclosed to the code provider: e.g., only 8 bits can be sent out.
+\DIFadd{We use entropy control to mitigate covert-channels. Since the data owner is the recipient of an enclave’s output, all a malicious enclave program can do is to signal to the untrusted OS the content of the data through covert channels, e.g., through system call interfaces. To address this type of covert channel leak, we control the enclave program’s input and output behaviors. }\DIFaddend Specially, the wrapper for \texttt{send} encrypts the message to be delivered and pads it to a fixed length. \DIFdelbegin \DIFdel{For more complicated settings, we only permit a list of OCalls to be invoked once to deliver the computing result to the code provider, which can be enforced by the wrapper of the function. Further}\DIFdelend \DIFaddbegin \DIFadd{Further, }\DIFaddend the wrapper can put a constraint on the length of the result to control the amount of information disclosed to the code provider: e.g., only 8 bits can be sent out.
 
 %\revise{the basic CCaaS setting,  \texttt{send} and \texttt{recv} must be allowed to communicate with the data owner.  Specially, the wrapper for \texttt{send} encrypts the message to be delivered and pads it to a fixed length. For more complex settings, we only permit a list of OCalls}
 %When necessary, the wrappers of these functions can pad the encrypted output and ensure that the inter-packet timings are constant to mitigate the covert-channel risk.
@@ -374,7 +382,9 @@ For each indirect branch, the verifier checks the annotation code \DIFdelbegin \
 
 %DIFDELCMD < %%%
 \DIFdelend With such verification, no hidden control transfers will be performed by the binary, allowing further inspection of other instrumented annotations. These annotations are expected to be well formatted and located around the critical operations as described in Section~\ref{subsec-producer}. %Figure~\ref{fg-mov} presents an example. 
-More details are given in Section~\ref{subsec-instrument} and our Github repository~\cite{our-prototype}.
+More details are given in Section~\ref{subsec-instrument}\DIFdelbegin \DIFdel{and our Github repository~\mbox{%DIFAUXCMD
+\cite{our-prototype}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend .
 
 
 %\revise{Figure~\ref{} shows an example on memory inline guards.Figure~\ref{} shows an example on CFI inline guards.Figure~\ref{} shows an example on shadow stack inline guards.}

@@ -5,7 +5,7 @@
 \subsection{Security Analysis}\label{subsec-securityanalysis}
 
 \noindent\textbf{TCB analysis}. 
-The hardware TCB of \textsc{Deflection} includes the TEE-enabled platform, i.e. the SGX hardware. The software TCB includes the components shown in Table~\ref{tb-tcb}. \DIFaddbegin \DIFadd{Security and privacy are guaranteed by the lightweight in-enclave verifier (in TCB), even if the code generator has mis-compilation errors. The correctness of our verifier can be formally verified, using memory safety verification tools such as SMACK and model checking tools such as SPIN. The correctness of the whole bootstrap enclave can be formally verified since its TCB is small.
+The hardware TCB of \textsc{Deflection} includes the TEE-enabled platform, i.e. the SGX hardware. The software TCB includes the components shown in Table~\ref{tb-tcb}. \DIFaddbegin \DIFadd{Security and privacy are guaranteed by the lightweight in-enclave verifier (in TCB), even if the code generator has mis-compilation errors. The correctness of our verifier can be formally verified, using memory safety verification tools such as SMACK and model checking tools such as SPIN.
 }
 
 \DIFaddend The loader we implemented consists of less than 600 lines of code (LoCs) and the verifier includes less than 700 LoCs, also integrating the SGX SDK and part of Capstone libraries. 

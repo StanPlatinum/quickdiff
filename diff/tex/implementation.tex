@@ -97,7 +97,7 @@ Thus, we incorporate a lightweight disassembler inside the enclave. To implement
 
 
 \vspace{2pt}\noindent$\bullet$\textit{ Policy verifier.}\label{subsec-policyverifer}
-The verifier and the following rewriter do the work just right after the target binary is disassembled, according the structured guard formats provided by our code generator. The verifier uses a simple scanning algorithm to ensure \DIFdelbegin \DIFdel{the policies }\DIFdelend \DIFaddbegin \DIFadd{that the policies are }\DIFaddend applied in assembly language instrumentation. 
+The verifier and the following rewriter do the work just right after the target binary is disassembled\DIFdelbegin \DIFdel{, according the structured guard formats provided by our code generator}\DIFdelend . The verifier uses a simple scanning algorithm to ensure \DIFdelbegin \DIFdel{the policies }\DIFdelend \DIFaddbegin \DIFadd{that the policies are }\DIFaddend applied in assembly language instrumentation. 
 %Then, the verifier's job is done and the proof (instrumentations) will do the magic - checking policies. 
 Specifically, the verifier scans the whole assembly recursively along with the disassembler. It follows the clipped disassembler to scan instrumentations before/after certain instructions are in place, and checks if there is any branch target pointing between instructions in those instrumentations.
 %Moreover, legal jump addresses can be obtained from symbol tables by searching indirect branch target names.

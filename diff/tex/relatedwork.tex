@@ -8,13 +8,20 @@ In-enclave JVM interpreter is also a good choice~\cite{jiang2020uranus}. These s
 
 \vspace{3pt}\noindent\textbf{Data confinement with SFI}.
 Most related to our work are data confinement technologies, which confines untrusted code with confidentiality and integrity guarantees. Ryoan~\cite{hunt2018ryoan} and its follow-up work~\cite{hunt2018chiron} provide an distributed sand-box by porting NaCl to the enclave environment, confining untrusted data-processing modules to prevent leakage of the user’s input data. However the overhead of Ryoan turns out huge (e.g., 100\% on genes data) and was evaluated on an software emulator for supporting SGXv2 instructions.
-XFI~\cite{erlingsson2006xfi} is the most representative unconventional PCC work based on SFI, which places a verifier at OS level, instead of a TEE. \revise{Our compiler-based generator is more efficient in providing forward-edge CFI and our runtime enforcement is simpler than inline reference monitor or dynamic binary translation used by traditional SFI}~\cite{zhou2014armlock,tan2017principles}. Occlum~\cite{shen2020occlum} is
-a design of SGX-based library OS, enforcing in-enclave task isolation with \DIFaddbegin \DIFadd{an }\DIFaddend MPX-based multi-domain SFI scheme. 
-Side channels pose serious threats~\cite{lee2017inferring,wang2017leaky,van2018foreshadow,chen2019sgxpectre}, while existing work assumes side channels as an orthogonal research topic~\cite{sinha2015moat,subramanyan2017formal,shen2020occlum}. 
-%This leaves a challenge to integrate SGX secure computing framework with SGX side defense. 
-Our framework is designed with side channels in mind and it can flexibly support integration of instrumentation based side channel defenses~\cite{shinde2016preventing,shih2017t,oleksenko2018varys,sinha2017compiler,chen2018racing}.
-%As the goal of Occlum and others is not to prevent information leakage from untrusted code, none of them employs protections against side channel leakages. 
-%It has a distributed verification design, the TCB introduced by the Library OS is substantial non-negligible.
+XFI~\cite{erlingsson2006xfi} is the most representative unconventional PCC work based on SFI, which places a verifier at OS level, instead of a TEE. \revise{Our compiler-based generator is more efficient in providing forward-edge CFI and our runtime enforcement is simpler than inline reference monitor or dynamic binary translation used by traditional SFI}~\cite{zhou2014armlock,tan2017principles}. \DIFdelbegin \DIFdel{Occlum~\mbox{%DIFAUXCMD
+\cite{shen2020occlum} }\hspace{0pt}%DIFAUXCMD
+is a design of SGX-based library OS, enforcing in-enclave task isolation with  MPX-based multi-domain SFI scheme. Side channels pose serious threats~\mbox{%DIFAUXCMD
+\cite{lee2017inferring,wang2017leaky,van2018foreshadow,chen2019sgxpectre}}\hspace{0pt}%DIFAUXCMD
+, while existing work assumes side channels as an orthogonal research topic~\mbox{%DIFAUXCMD
+\cite{sinha2015moat,subramanyan2017formal,shen2020occlum}}\hspace{0pt}%DIFAUXCMD
+. %DIF < This leaves a challenge to integrate SGX secure computing framework with SGX side defense. 
+Our framework is designed with side channels in mind and it can flexibly support integration of instrumentation based sidechannel defenses~\mbox{%DIFAUXCMD
+\cite{shinde2016preventing,shih2017t,oleksenko2018varys,sinha2017compiler,chen2018racing}}\hspace{0pt}%DIFAUXCMD
+.
+%DIF < As the goal of Occlum and others is not to prevent information leakage from untrusted code, none of them employs protections against side channel leakages. 
+%DIF < It has a distributed verification design, the TCB introduced by the Library OS is substantial non-negligible.
+}\DIFdelend \DIFaddbegin \DIFadd{The advantage of our design compared to other state-of-the-art shielding runtimes (e.g., Occlum) is three-fold. Firstly, DEFLECTION is more general. The memory access check of Occlum relies on hardware (Intel MPX) which is no longer supported, significantly hindering deployment. Secondly, DEFLECTION has a smaller size of TCB. Other than importing Zydis and PyVEX (in Python) to be the disassembler and verifier, we shrank and modified Capstone (in C) to implement our smaller disassembler and verifier. Thirdly, DEFLECTION can mitigate some side/covert channel leaks while others provide no such protection.
+}\DIFaddend 
 
 \vspace{3pt}\noindent\textbf{Code privacy}.
 Code secrecy is an easy to be ignored but very important issue~\cite{kuccuk2019managing}. TEEshift~\cite{lazard2018teeshift}, 

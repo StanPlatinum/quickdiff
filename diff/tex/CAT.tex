@@ -4,16 +4,14 @@
 %\subsection{Motivating Example}\label{subsec-motivation}
 
 \DIFaddbegin \DIFadd{In this section, we present the }\textit{\DIFadd{DElegated and  FLexible  in-Enclave  Code verification}} \DIFadd{(}\textsc{\DIFadd{Deflection}}\DIFadd{) model to allow the data owner to verify that the enclave code satisfies predefined security policy requirements without undermining the privacy of the enclave code.
-}
-
-\DIFaddend Consider an organization that provides data-processing services, such as image editing, tax preparation, personal health analysis and deep learning inference as a service. To use the services, \DIFdelbegin \DIFdel{their }\DIFdelend customers need to upload their sensitive data, such as images, tax documents, and health data, to the hosts operated by the organization. To avoid exposing the data, the services run inside SGX enclaves and need to prove to the customers that they are accessing to attested service programs. However, the organization may not want to release \DIFdelbegin \DIFdel{the }\DIFdelend proprietary programs to protect its intellectual property. \DIFdelbegin \DIFdel{This problem cannot be addressed by today's TEE design.  
+}\DIFaddend Consider an organization that provides data-processing services, such as image editing, tax preparation, personal health analysis and deep learning inference as a service. To use the services, \DIFdelbegin \DIFdel{their }\DIFdelend customers need to upload their sensitive data, such as images, tax documents, and health data, to the hosts operated by the organization. To avoid exposing the data, the services run inside SGX enclaves and need to prove to the customers that they are accessing to attested service programs. However, the organization may not want to release \DIFdelbegin \DIFdel{the }\DIFdelend proprietary programs to protect its intellectual property. \DIFdelbegin \DIFdel{This problem cannot be addressed by today's TEE design.  
 }%DIFDELCMD < 
 
 %DIFDELCMD < %%%
 \DIFdel{In this section, we present the }\textit{\DIFdel{DElegated and  FLexible  in-Enclave  Code verification}} %DIFAUXCMD
 \DIFdel{(}\textsc{\DIFdel{Deflection}}%DIFAUXCMD
 \DIFdel{) model to allow the data owner to verify that the enclave code satisfies predefined security policy requirements without undermining the privacy of the enclave code}\DIFdelend \DIFaddbegin \DIFadd{Here, DEFLECTION can enforce the data privacy on behalf of the data-processing services.
-Besides, the framework of our system is highly flexible, which means assembling new policies into current design can be very straightforward. Different on-demand policies can be appended/withdrawn to serve various goals. For example, DEFLECTION can make the quick patch possible on software level, just like the way people coping with 1-day vulnerabilities - emergency quick fix}\DIFaddend . 
+Besides, the framework of our system is highly flexible, which means assembling new policies into current design can be very straightforward. Different on-demand policies can be appended/withdrawn to serve various goals. For example, DEFLECTION can make the quick patch possible on software level, like the way people coping with 1-day vulnerabilities - emergency quick fix}\DIFaddend . 
 
  
 
@@ -42,12 +40,14 @@ Besides, the framework of our system is highly flexible, which means assembling 
 \vspace{3pt}\noindent\textbf{Bootstrap enclave}. The bootstrap enclave is a built-in control layer on the software stack, hosted by the code provider or a third party cloud  (see Figure~\ref{fg-cat}). Its code is public and initial state is measured by hardware for generating an attestation quote, which is later verified by the data owner with the help of the AS. This software layer is responsible for establishing security channels with enclave users, authenticating and dynamically loading the binary of the target program from the code provider and data from its owner. \DIFdelbegin \DIFdel{Further it }\DIFdelend \DIFaddbegin \DIFadd{It further }\DIFaddend verifies the code to ensure its compliance with predefined security policies before bootstrapping the computation. During the computing, it also controls the data entering or exiting the enclave, e.g., through SGX ECalls/OCalls to perform data sanitization.
     % I want to demonstrate: the loaded code is not allowed to perform OCALL and the ECALL will not reach the loaded code directly. The interfaces are controlled by the bootstrap enclave.
 
-\vspace{3pt}\noindent\textbf{Data owner}. The data owner uploads sensitive data (e.g., personal images) to use in-enclave services (e.g., an image classifier) and intends to keep her data secret during the computation. To this end, the owner runs a remote attestation with the enclave to verify the code of the bootstrap enclave, and sends in data through a secure channel only when convinced that the enclave is in the right state so expected policy compliance check will be properly performed on the target binary from the code provider. 
-\ignore{
-Note that here we only consider the scenario that the data owner is the only recipient of the output of the enclave service, though the CAT model can be extended to support the application involving multiple data owners and a separate data user.  
-}
-%Note that there could be more than one data owner to provide data.  
-
+\vspace{3pt}\noindent\textbf{Data owner}. The data owner uploads sensitive data \DIFdelbegin \DIFdel{(e.g., personal images) }\DIFdelend to use in-enclave services \DIFdelbegin \DIFdel{(e.g., an image classifier) }\DIFdelend and intends to keep her data secret during the computation. 
+\DIFdelbegin \DIFdel{To this end, the owner runs a remote attestation with the enclave to verify the code of the bootstrap enclave, and sends in data through a secure channel only when convinced that the enclave is in the right state so expected policy compliance check will be properly performed on the target binary from the code provider. 
+}%DIFDELCMD < \ignore{
+%DIFDELCMD < Note that here we only consider the scenario that the data owner is the only recipient of the output of the enclave service, though the CAT model can be extended to support the application involving multiple data owners and a separate data user.  
+%DIFDELCMD < }
+%DIFDELCMD < %%%
+%DIF < Note that there could be more than one data owner to provide data.  
+\DIFdelend 
 
 %Depending on applications, there could be more than one owners to send in data. who feed data into the enclave and would like to keep the data from leaking out of the enclave. For this purpose they initiate a remote attestation by sending an attestation request challenge to the enclave developer, inspect and verify the code of the bootstrap enclave by checking the remote attestation report. If they are convinced the bootstrap enclave can guarantee the predefined policies are applied to the loaded code, they can send the data (in encrypted form) to the bootstrap enclave.
 
@@ -60,7 +60,7 @@ Both parties, a service provider (data owner) and a remote user (code provider),
 }
 
 \DIFadd{After the two attestations are done and shared session keys are negotiated by Diffie–Hellman key exchange, all messages can be transferred through the two trusted channels.
-Since the data owner already knows the measurement/hash of the service code. The bootstrap enclave first extracts and verifies the measurement/hash of the service code, and then sends the measurement/hash to the data owner. After the user is sure about the authenticity of the service code, she can begin to feed data into the service.
+Since the data owner already knows the measurement/hash of the service code. The bootstrap enclave first extracts and verifies the measurement/hash of the service code, and then sends the measurement/hash to the data owner. After the data owner is sure about the authenticity of the service code, she can begin to feed data into the service.
 }
 
 \DIFaddend % for 11 page limit
@@ -97,7 +97,11 @@ To instantiate a \textsc{Deflection} System on a real-world TEE such as SGX, we 
 %At the core of instantiating the CAT model is the design of the bootstrap enclave who is responsible for enforcing the privacy and security policies. We list the design goals to enable a secure and efficient bootstrap enclave.
 
 \vspace{3pt}\noindent\textbf{Minimizing TCB and resource consumption}.\label{challenge-tcb}\label{challenge-size} 
-Today's TEEs operate under resource constraints.  Particularly, SGX is characterized by \DIFdelbegin \DIFdel{limited EPC}\DIFdelend \DIFaddbegin \DIFadd{a limited Enclave Page Cache (EPC)}\DIFaddend . To maintain reasonable performance, we expect the software stack of the \textsc{Deflection} model \DIFdelbegin \DIFdel{controls }\DIFdelend \DIFaddbegin \DIFadd{to control }\DIFaddend its resource use. The bootstrap enclave is responsible for enforcing security and privacy policies and for controlling the interfaces that import and export code/data for the enclave. So it is critical for trust establishment and needs to be kept as compact as possible for code inspection or verification~\cite{mccune2008flicker}.  
+Today's TEEs operate under resource constraints.  Particularly, SGX is characterized by \DIFdelbegin \DIFdel{limited EPC}\DIFdelend \DIFaddbegin \DIFadd{a limited Enclave Page Cache (EPC)}\DIFaddend . To maintain reasonable performance, we expect the software stack of the \textsc{Deflection} model \DIFdelbegin \DIFdel{controls }\DIFdelend \DIFaddbegin \DIFadd{to control }\DIFaddend its resource use. 
+\DIFdelbegin \DIFdel{The bootstrap enclave is responsible for enforcing security and privacy policies and for controlling the interfaces that import and export code/data for the enclave. So it is critical for trust establishment and needs to be kept as compact as possible for code inspection or verification~\mbox{%DIFAUXCMD
+\cite{mccune2008flicker}}\hspace{0pt}%DIFAUXCMD
+.  
+}\DIFdelend %DIF >  The bootstrap enclave is responsible for enforcing security and privacy policies and for controlling the interfaces that import and export code/data for the enclave. So it is critical for trust establishment and needs to be kept as compact as possible for code inspection or verification~\cite{mccune2008flicker}.  
 
 \vspace{3pt}\noindent\textbf{Controlling portable code loading}.\label{challenge-dep} The target binary is dynamically loaded and inspected by the bootstrap enclave. However, the binary may further sideload other code during its runtime. 
 %Some TEE hardware, SGX in particular, does not allow dynamic change to enclave page's RWX properties. 
@@ -121,7 +125,8 @@ Software stack should be designed to prevent the code from escaping policy enfor
 \subsection{Threat Model}
 \label{subsec-threat}
 
-The delegation model is meant to establish trust between the enclave and the code provider, as well as the data owner, under the following assumptions: 
+\DIFdelbegin \DIFdel{The delegation model is meant to establish trust between the enclave and the code provider, as well as the data owner, under the following assumptions: 
+}\DIFdelend %DIF >  The delegation model is meant to establish trust between the enclave and the code provider, as well as the data owner, under the following assumptions: 
 
 %To demonstrate how to instantiate the CAT model, in the rest of the paper we consider a specific application scenario, i.e., privacy preserving online data processing (Scenario 1 in Sec.~\ref{subsec-scenarios}). As shown in Sec.~\ref{subsec-motivation}, many real world privacy preserving data processing tasks fall into this scenario. As described earlier for Scenario 1, the user (i.e., the data provider) submits her sensitive data to a service provider (i.e., the code owner) for data processing tasks. In our threat model, we make the following assumptions.
 
@@ -148,7 +153,15 @@ The delegation model is meant to establish trust between the enclave and the cod
 \vspace{2pt}\noindent$\bullet$ We assume that the code of the bootstrap enclave can be inspected to verify its functionalities and correctness.  Also we consider the TEE hardware, its attestation protocol, and all underlying cryptographic primitives to be trusted.  
 
 
-\vspace{2pt}\noindent$\bullet$ Our model is meant to protect data and code against different kinds of information leaks, not only explicit but also implicit.  However, side channel in a user-land TEE (like SGX) is known to be hard to eliminate, which all existing SGX runtimes (including container~\cite{arnautov2016scone}, sandbox~\cite{hunt2018ryoan}, interpreter~\cite{wang2019towards} and others) fail to address. So our design for instantiating the model on SGX (Section~\ref{subsec-policies}) just aims to make the first step towards closing of this attack surface, mitigating some types of side-channel threats.  
+\DIFdelbegin %DIFDELCMD < \vspace{2pt}\noindent%%%
+\DIFdel{$\bullet$ Our model is meant to protect data and code against different kinds of information leaks, not only explicit but also implicit.  However, side channel in a user-land TEE (like SGX) is known to be hard to eliminate, which all existing SGX runtimes (including container~\mbox{%DIFAUXCMD
+\cite{arnautov2016scone}}\hspace{0pt}%DIFAUXCMD
+, sandbox~\mbox{%DIFAUXCMD
+\cite{hunt2018ryoan}}\hspace{0pt}%DIFAUXCMD
+, interpreter~\mbox{%DIFAUXCMD
+\cite{wang2019towards} }\hspace{0pt}%DIFAUXCMD
+and others) fail to address. So our design for instantiating the model on SGX (Section~\ref{subsec-policies}) just aims to make the first step towards closing of this attack surface, mitigating some types of side-channel threats.  
+}\DIFdelend %DIF >  \vspace{2pt}\noindent$\bullet$ Our model is meant to protect data and code against different kinds of information leaks, not only explicit but also implicit.  However, side channel in a user-land TEE (like SGX) is known to be hard to eliminate, which all existing SGX runtimes (including container~\cite{arnautov2016scone}, sandbox~\cite{hunt2018ryoan}, interpreter~\cite{wang2019towards} and others) fail to address. So our design for instantiating the model on SGX (Section~\ref{subsec-policies}) just aims to make the first step towards closing of this attack surface, mitigating some types of side-channel threats.  
 
 %Besides, we assume the bootstrap enclave code can be inspected (or formally verified) by the users through remote attestation, so that it is trusted to be functional as designed. We trust the SGX hardware and the Intel's attestation protocol as well as the cryptographic algorithms underneath. The mutual authentication between the users and service provider is orthogonal to the design and is omitted in the paper.
 

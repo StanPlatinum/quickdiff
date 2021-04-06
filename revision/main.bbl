@@ -47,13 +47,6 @@ Z.~Zhang, X.~Ding, G.~Tsudik, J.~Cui, and Z.~Li, ``Presence attestation: The
   2017 ACM SIGSAC Conference on Computer and Communications Security}, 2017,
   pp. 89--102.
 
-\bibitem{chakrabarti2019scaling}
-S.~Chakrabarti, M.~Hoekstra, D.~Kuvaiskii, and M.~Vij, ``Scaling
-  intel{\textregistered} software guard extensions applications with
-  intel{\textregistered} sgx card,'' in \emph{Proceedings of the 8th
-  International Workshop on Hardware and Architectural Support for Security and
-  Privacy}, 2019, pp. 1--9.
-
 \bibitem{priebe2019sgx}
 C.~Priebe, D.~Muthukumaran, J.~Lind, H.~Zhu, S.~Cui, V.~A. Sartakov, and
   P.~Pietzuch, ``Sgx-lkl: Securing the host os interface for trusted
@@ -229,12 +222,6 @@ D.~Brumley, I.~Jager, T.~Avgerinos, and E.~J. Schwartz, ``Bap: A binary
 A.~W. Appel, ``{Foundational proof-carrying code},'' in \emph{Proceedings 16th
   Annual IEEE Symposium on Logic in Computer Science}.\hskip 1em plus 0.5em
   minus 0.4em\relax IEEE, 2001, pp. 247--256.
-
-\bibitem{mccune2008flicker}
-J.~M. McCune, B.~J. Parno, A.~Perrig, M.~K. Reiter, and H.~Isozaki, ``Flicker:
-  An execution infrastructure for tcb minimization,'' in \emph{Proceedings of
-  the 3rd ACM SIGOPS/EuroSys European Conference on Computer Systems 2008},
-  2008, pp. 315--328.
 
 \bibitem{wang2018detect}
 Z.~Wang, X.~Ding, C.~Pang, J.~Guo, J.~Zhu, and B.~Mao, ``To detect stack buffer
@@ -435,41 +422,6 @@ Y.~Zhou, X.~Wang, Y.~Chen, and Z.~Wang, ``Armlock: Hardware-based fault
 G.~Tan \emph{et~al.}, \emph{Principles and implementation techniques of
   software-based fault isolation}.\hskip 1em plus 0.5em minus 0.4em\relax Now
   Publishers, 2017.
-
-\bibitem{van2018foreshadow}
-J.~Van~Bulck, M.~Minkin, O.~Weisse, D.~Genkin, B.~Kasikci, F.~Piessens,
-  M.~Silberstein, T.~F. Wenisch, Y.~Yarom, and R.~Strackx, ``Foreshadow:
-  Extracting the keys to the intel $\{$SGX$\}$ kingdom with transient
-  out-of-order execution,'' in \emph{27th $\{$USENIX$\}$ Security Symposium
-  ($\{$USENIX$\}$ Security 18)}, 2018, pp. 991--1008.
-
-\bibitem{chen2019sgxpectre}
-G.~Chen, S.~Chen, Y.~Xiao, Y.~Zhang, Z.~Lin, and T.~H. Lai, ``Sgxpectre:
-  Stealing intel secrets from sgx enclaves via speculative execution,'' in
-  \emph{2019 IEEE European Symposium on Security and Privacy (EuroS\&P)}.\hskip
-  1em plus 0.5em minus 0.4em\relax IEEE, 2019, pp. 142--157.
-
-\bibitem{subramanyan2017formal}
-P.~Subramanyan, R.~Sinha, I.~Lebedev, S.~Devadas, and S.~A. Seshia, ``{A Formal
-  Foundation for Secure Remote Execution of Enclaves},'' in \emph{Proceedings
-  of the 2017 ACM SIGSAC Conference on Computer and Communications
-  Security}.\hskip 1em plus 0.5em minus 0.4em\relax ACM, 2017, pp. 2435--2450.
-
-\bibitem{shinde2016preventing}
-S.~Shinde, Z.~L. Chua, V.~Narayanan, and P.~Saxena, ``Preventing page faults
-  from telling your secrets,'' in \emph{Proceedings of the 11th ACM on Asia
-  Conference on Computer and Communications Security}, 2016, pp. 317--328.
-
-\bibitem{oleksenko2018varys}
-O.~Oleksenko, B.~Trach, R.~Krahn, M.~Silberstein, and C.~Fetzer, ``Varys:
-  Protecting $\{$SGX$\}$ enclaves from practical side-channel attacks,'' in
-  \emph{2018 $\{$USENIX$\}$ Annual Technical Conference
-  ($\{$USENIX$\}$$\{$ATC$\}$ 18)}, 2018, pp. 227--240.
-
-\bibitem{sinha2017compiler}
-R.~Sinha, S.~Rajamani, and S.~A. Seshia, ``A compiler and verifier for page
-  access oblivious computation,'' in \emph{Proceedings of the 2017 11th Joint
-  Meeting on Foundations of Software Engineering}, 2017, pp. 649--660.
 
 \bibitem{kuccuk2019managing}
 K.~A. K{\"u}{\c{c}}{\"u}k, D.~Grawrock, and A.~Martin, ``Managing
