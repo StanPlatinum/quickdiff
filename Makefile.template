@@ -1,7 +1,7 @@
 PAPER = main
 TEX = $(wildcard tex/*.tex)
 # BIB = bibliography/ref.bib
-BIB = bibliography/ref.bib
+BIB = ref.bib
 FIGS = $(wildcard pictures/*.pdf pictures/*.png figures/*.pdf figures/*.png graphs/*.pdf graphs/*.png)
 
 .PHONY: all clean
