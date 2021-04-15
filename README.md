@@ -1,8 +1,8 @@
 # quickdiff
 
-## Install
+## Prerequisite
 
-If you ard using Ubuntu, run `sudo apt install texlive perl latexdiff`
+If you are using Ubuntu, run `sudo apt install texlive perl latexdiff`
 
 ## Usage
 
