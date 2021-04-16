@@ -48,7 +48,7 @@ for file in ./*.tex
 do
 	cp $YIJIAN_DIR/origin/tex/$file ./${file}_draft
 	mv $file ./${file}_revision
-	latexdiff ${file}_draft ${file}_revision > $file
+	latexdiff --config='PICTUREENV=(?:picture|DIFnomarkup|lstlisting)[\w\d*@]*' ${file}_draft ${file}_revision > $file
 done
 #cp $YIJIAN_DIR/origin/tex/introduction.tex ./introduction_draft.tex
 #mv introduction.tex introduction_revision.tex
