@@ -1,2 +1,2 @@
 rm -rf origin revision diff
-rm -f revision.pdf diff.pdf
+# rm -f revision.pdf diff.pdf

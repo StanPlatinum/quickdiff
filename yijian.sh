@@ -50,7 +50,9 @@ do
 	mv $file ./${file}_revision
 	latexdiff ${file}_draft ${file}_revision > $file
 done
-# latexdiff --config='PICTUREENV=(?:picture|DIFnomarkup|lstlisting)[\w\d*@]*' ${file}_draft ${file}_revision > $file
+
+	# latexdiff --config='PICTUREENV=(?:picture|DIFnomarkup|lstlisting)[\w\d*@]*' ${file}_draft ${file}_revision > $file
+
 #cp $YIJIAN_DIR/origin/tex/introduction.tex ./introduction_draft.tex
 #mv introduction.tex introduction_revision.tex
 #latexdiff introduction_draft.tex introduction_revision.tex > introduction.tex
