@@ -37,3 +37,23 @@ Generating `diff`;
 Processing `diff`;
 
 Generating final pdf files.
+
+#### Prepare your tex
+
+##### Structure
+
+`main.tex`
+
+`tex/*.tex`
+
+`figures/*.pdf`
+
+`bibliography/final.bib`
+
+`*.cls`
+
+##### Don'ts
+
+No `\looseness=-1` !!!
+
+`\ignore{}` can be used, but not too many.
