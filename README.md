@@ -2,7 +2,7 @@
 
 ## Prerequisite
 
-If you are using Ubuntu, run `sudo apt install texlive perl latexdiff`
+If you are using Ubuntu, run `sudo apt install texlive texlive-science perl latexdiff`
 
 
 ## Usage
