@@ -4,7 +4,7 @@
 # In the origin dir, only one zip file (before camera-ready) should be in there.
 # In the revision dir, only one zip file (camera-ready) should be in there.
 
-# NOTE: Assume that only the tex dir in the overleaf project has been modified during the camera-ready preparation.
+# NOTE: Assume that only the tex dir in the Overleaf project has been modified during the camera-ready preparation.
 
 export YIJIAN_DIR=$PWD
 
